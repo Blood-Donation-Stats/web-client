@@ -1,0 +1,10 @@
+export enum BloodType {
+  ZERO_RH_MINUS = 'ZERO_RH_MINUS',
+  ZERO_RH_PLUS = 'ZERO_RH_PLUS',
+  A_RH_MINUS = 'A_RH_MINUS',
+  A_RH_PLUS = 'A_RH_PLUS',
+  B_RH_MINUS = 'B_RH_MINUS',
+  B_RH_PLUS = 'B_RH_PLUS',
+  AB_RH_MINUS = 'AB_RH_MINUS',
+  AB_RH_PLUS = 'AB_RH_PLUS'
+}

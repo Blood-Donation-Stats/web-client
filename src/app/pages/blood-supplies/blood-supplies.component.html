@@ -1,0 +1,121 @@
+<app-menu></app-menu>
+
+<div class="container" fxLayout="row" fxLayout.xs="column"  fxLayoutAlign="center">
+  <div fxFlex="90%" fxFlexFill class="center-in-line">
+
+    <mat-card >
+      <mat-card-title>Blood Center Select</mat-card-title>
+      <mat-card-content>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Select Blood Center</mat-label>
+            <mat-select (selectionChange)="onSelectBloodCenters(selectCenter.value)" #selectCenter>
+              <mat-option [value]="center.id" *ngFor="let center of (bloodCenters$ | async)">{{ center.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <button [disabled]="!selectCenter.value" mat-raised-button color="primary" (click)="onSelectBloodCenters(selectCenter.value)">Refresh</button>
+        </div>
+
+        <div *ngIf="selectCenterLoading">
+          <mat-spinner></mat-spinner>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card >
+      <mat-card-title>Blood Group Select</mat-card-title>
+      <mat-card-content>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Select Blood Group</mat-label>
+            <mat-select (selectionChange)="onSelectBloodGroup(selectGroup.value)" #selectGroup>
+              <mat-option [value]="bloodType" *ngFor="let bloodType of bloodTypes">{{ bloodType }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <button [disabled]="!selectGroup.value" mat-raised-button color="primary" (click)="onSelectBloodGroup(selectGroup.value)">Refresh</button>
+        </div>
+
+        <div *ngIf="selectCenterLoading">
+          <mat-spinner></mat-spinner>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div class="container" fxLayout="row" fxLayout.xs="column"  fxLayoutAlign="center">
+  <div fxFlex="45%" fxFlexFill >
+    <mat-card class="content">
+      <mat-card-title>View Weekly Supplies By Blood Type In Center</mat-card-title>
+      <mat-card-content>
+        <div *ngIf="viewWeeklyLoading">
+          <mat-spinner></mat-spinner>
+        </div>
+
+        <div *ngIf="!selectCenter.value || !selectGroup.value" style="text-align:center"><br><br><br>pick center and blood type</div>
+
+        <div *ngIf="!viewWeeklyLoading && ((graphDataWeeklyBloodTypeSuppliesInCenter$ | async)?.length === 0) " style="text-align:center"><br><br><br>no data</div>
+
+        <div *ngIf="!viewWeeklyLoading && ((graphDataWeeklyBloodTypeSuppliesInCenter$ | async)?.length > 0) ">
+          <ngx-charts-bar-vertical
+            [results]="graphDataWeeklyBloodTypeSuppliesInCenter$ | async"
+            [view]="view"
+            [scheme]="colorScheme"
+            [gradient]="gradient"
+            [xAxis]="showXAxis"
+            [yAxis]="showYAxis"
+            [legend]="showLegend"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel"
+            [tooltipDisabled]='tooltipDisabled'>
+          </ngx-charts-bar-vertical>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+
+  <div fxFlex="45%" fxFlexFill >
+    <mat-card class="content">
+      <mat-card-title>View Current Supplies By Center</mat-card-title>
+      <mat-card-content>
+        <div *ngIf="viewCurrentLoading">
+          <mat-spinner></mat-spinner>
+        </div>
+
+        <div *ngIf="!selectCenter.value" style="text-align:center"><br><br><br>pick center</div>
+
+        <div *ngIf="!viewCurrentLoading && ((graphDataCurrentBloodSuppliesInCenter$ | async)?.length === 0) " style="text-align:center"><br><br><br>no data</div>
+
+        <div *ngIf="!viewCurrentLoading && ((graphDataCurrentBloodSuppliesInCenter$ | async)?.length > 0) ">
+          <ngx-charts-bar-vertical
+            [results]="graphDataCurrentBloodSuppliesInCenter$ | async"
+            [view]="view"
+            [scheme]="colorScheme"
+            [gradient]="gradient"
+            [xAxis]="showXAxis"
+            [yAxis]="showYAxis"
+            [legend]="showLegend"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel"
+            [tooltipDisabled]='tooltipDisabled'>
+          </ngx-charts-bar-vertical>
+        </div>
+
+
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+</div>

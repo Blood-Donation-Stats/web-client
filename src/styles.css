@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+  width: 100%;
+  background: dimgrey;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+mat-card { margin: 5px; padding: 5px;}
+
+table {
+  width: 100%;
+}
+
+.center-in-line {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  height: 100%;
+  min-height: 550px;
+  box-sizing: border-box;
+}
+mat-card-title {
+  color: #c2185b;
+  text-align:center
+}
+
+.mat-stroked-button {
+  width: 200px;  height: 55px;
+}
